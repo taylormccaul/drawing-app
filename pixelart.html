@@ -27,8 +27,6 @@
         <input type="color" name="color-input" id="color-input">
         <button name="disco" id="disco">Disco</button>
         <button name="rainbow" id="rainbow">Rainbow</button>
-        <!--<button name="single" id="single">Single Fill</button>
-        <button name="trail" id="trail">Trail</button>-->
         <button name="clear" id="clear">Clear</button>
         <script>
             let body = document.getElementById('body');
@@ -42,17 +40,8 @@
             let pxColor = document.getElementById('color-input');
             let disco = document.getElementById('disco');
             let rainbow = document.getElementById('rainbow');
-            //let single = document.getElementById('single');
-            //let trail = document.getElementById('trail');
             let clear = document.getElementById('clear');
             let gridDivs = document.querySelector('#grid-container > div');
-
-            /*let colorLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            let colorNumbers = '123456';
-
-            for (let i = 0; i < 6; i++) {
-
-            }*/
 
             let hue = 0;
             let min = 0;
@@ -66,56 +55,24 @@
 
                         newDiv.addEventListener('mouseover', () => {
                             newDiv.style.backgroundColor = pxColor.value;
-                            //newDiv.style.backgroundColor = pxColor.value;
                         });
 
-                        /*pxColor.addEventListener('click', () => {
-                            newDiv.addEventListener('mouseover', () => {
-                                newDiv.style.backgroundColor = pxColor.value;
-                            })
-                        });*/
-
-                        /*disco.addEventListener('click', () => {
-                            newDiv.addEventListener('mouseover', () => {
+                        disco.addEventListener('click', function discButton() {
+                            newDiv.removeEventListener('mouseover', rainbow);
+                            newDiv.addEventListener('mouseover', function disco() {
                                 let random = Math.floor(Math.random() * max - min) - min;
                                 newDiv.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
                                 hue = random;
                             })
-                        });*/
+                        });
 
-                        rainbow.addEventListener('click', () => {
-                            newDiv.removeEventListener('mouseover', () => {
-                                newDiv.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
-                                hue = random;
-                            });
-                            newDiv.addEventListener('mouseover', () => {
+                        rainbow.addEventListener('click', function rainButton() {
+                            newDiv.removeEventListener('mouseover', disco);
+                            newDiv.addEventListener('mouseover', function rainbow() {
                                 newDiv.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
                                 hue++;
                             })
                         });
-
-                        /*function random() {
-                            let hue = 0;
-                            newDiv.style.backgroundColor = hue;
-                        }*/
-                    
-                        /*single.addEventListener('click', () => {
-                            newDiv.addEventListener('click', () => {
-                                newDiv.style.backgroundColor = pxColor.value;
-                            })
-                            newDiv.removeEventListener('mouseover', () => {
-                                newDiv.style.backgroundColor = pxColor.value;
-                            })
-                        });
-
-                        trail.addEventListener('click', () => {
-                            newDiv.addEventListener('mouseover', () => {
-                                newDiv.style.backgroundColor = pxColor.value;
-                            })
-                            newDiv.removeEventListener('click', () => {
-                                newDiv.style.backgroundColor = pxColor.value;
-                            })
-                        });*/
 
                         clear.addEventListener('click', () => {
                             newDiv.style.backgroundColor = 'white';
