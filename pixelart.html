@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            #grid-container {
+                display: grid;
+                margin-left: auto;
+                margin-right: auto;
+                width: 960px;
+                height: 90vh;
+            }
+
+            #grid-container > div {
+                margin: 0;
+            }
+
+            .grid-divs {
+                background-color: white;
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body id="body">
+        <div id="grid-container"></div>
+        <input type="color" name="color-input" id="color-input">
+        <button name="disco" id="disco">Disco</button>
+        <button name="rainbow" id="rainbow">Rainbow</button>
+        <!--<button name="single" id="single">Single Fill</button>
+        <button name="trail" id="trail">Trail</button>-->
+        <button name="clear" id="clear">Clear</button>
+        <script>
+            let body = document.getElementById('body');
+            let grid = document.querySelector('#grid-container')
+
+            let canvasSize = prompt("Choose your canvas size (1-64): ");
+
+            grid.style.gridTemplateColumns = `repeat(${canvasSize}, 1fr)`;
+            grid.style.gridTemplateRows = `repeat(${canvasSize}, 1fr)`;
+
+            let pxColor = document.getElementById('color-input');
+            let disco = document.getElementById('disco');
+            let rainbow = document.getElementById('rainbow');
+            //let single = document.getElementById('single');
+            //let trail = document.getElementById('trail');
+            let clear = document.getElementById('clear');
+            let gridDivs = document.querySelector('#grid-container > div');
+
+            /*let colorLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            let colorNumbers = '123456';
+
+            for (let i = 0; i < 6; i++) {
+
+            }*/
+
+            let hue = 0;
+            let min = 0;
+            let max = 360;
+
+                for (let i = 0; i < canvasSize; i++) {
+                    for (let j = 0; j < canvasSize; j++) {
+                        let newDiv = document.createElement('div');
+                        newDiv.classList.add('grid-divs');
+                        grid.appendChild(newDiv);
+
+                        newDiv.addEventListener('mouseover', () => {
+                            newDiv.style.backgroundColor = pxColor.value;
+                            //newDiv.style.backgroundColor = pxColor.value;
+                        });
+
+                        /*pxColor.addEventListener('click', () => {
+                            newDiv.addEventListener('mouseover', () => {
+                                newDiv.style.backgroundColor = pxColor.value;
+                            })
+                        });*/
+
+                        /*disco.addEventListener('click', () => {
+                            newDiv.addEventListener('mouseover', () => {
+                                let random = Math.floor(Math.random() * max - min) - min;
+                                newDiv.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
+                                hue = random;
+                            })
+                        });*/
+
+                        rainbow.addEventListener('click', () => {
+                            newDiv.removeEventListener('mouseover', () => {
+                                newDiv.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
+                                hue = random;
+                            });
+                            newDiv.addEventListener('mouseover', () => {
+                                newDiv.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
+                                hue++;
+                            })
+                        });
+
+                        /*function random() {
+                            let hue = 0;
+                            newDiv.style.backgroundColor = hue;
+                        }*/
+                    
+                        /*single.addEventListener('click', () => {
+                            newDiv.addEventListener('click', () => {
+                                newDiv.style.backgroundColor = pxColor.value;
+                            })
+                            newDiv.removeEventListener('mouseover', () => {
+                                newDiv.style.backgroundColor = pxColor.value;
+                            })
+                        });
+
+                        trail.addEventListener('click', () => {
+                            newDiv.addEventListener('mouseover', () => {
+                                newDiv.style.backgroundColor = pxColor.value;
+                            })
+                            newDiv.removeEventListener('click', () => {
+                                newDiv.style.backgroundColor = pxColor.value;
+                            })
+                        });*/
+
+                        clear.addEventListener('click', () => {
+                            newDiv.style.backgroundColor = 'white';
+                        })
+                    }
+                }
+        </script>
+    </body>
+</html>
