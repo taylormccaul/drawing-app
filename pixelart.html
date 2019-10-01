@@ -3,7 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Pixel Art Maker</title>
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P|Montserrat&display=swap" rel="stylesheet">
         <style>
+            h1 {
+                font-family: 'Press Start 2P', sans-serif;
+                text-align: center;
+            }
+
             #grid-container {
                 display: grid;
                 margin-left: auto;
@@ -12,22 +19,48 @@
                 height: 90vh;
             }
 
-            #grid-container > div {
+            #grid-container div {
                 margin: 0;
             }
 
             .grid-divs {
-                background-color: white;
-                border: 1px solid black;
+                background-color: rgb(242, 242, 242);
+            }
+
+            #button-div {
+                text-align: center;
+            }
+
+            .btn {
+                border: none;
+                padding: 10px;
+                background-color: rgb(240, 240, 240);
+                margin: 10px;
+                width: 8em;
+                margin-top: -3em;
+                font-family: 'Montserrat';
+            }
+
+            #color-input {
+                border: none;
+                padding: 2px;
+                width: 6em;
+                height: 2em;
+                margin-top: 1em;
             }
         </style>
     </head>
     <body id="body">
+        <h1>Pixel Art Maker</h1>
         <div id="grid-container"></div>
-        <input type="color" name="color-input" id="color-input">
-        <button name="disco" id="disco">Disco</button>
-        <button name="rainbow" id="rainbow">Rainbow</button>
-        <button name="clear" id="clear">Clear</button>
+        <div id="button-div">
+            <input type="color" name="color-input" id="color-input">
+            <button name="disco" id="disco" class="btn" type="button">Disco</button>
+            <button name="rainbow" id="rainbow" class="btn" type="button">Rainbow</button>
+            <button name="border-on" id="border-on" class="btn" type="button">Border On</button>
+            <button name="border-off" id="border-off" class="btn" type="button">Border Off</button>
+            <button name="clear" id="clear" class="btn" type="button">Clear</button>
+        </div>
         <script>
             let body = document.getElementById('body');
             let grid = document.querySelector('#grid-container')
@@ -40,6 +73,8 @@
             let pxColor = document.getElementById('color-input');
             let disco = document.getElementById('disco');
             let rainbow = document.getElementById('rainbow');
+            let borderOn = document.getElementById('border-on');
+            let borderOff = document.getElementById('border-off');
             let clear = document.getElementById('clear');
             let gridDivs = document.querySelector('#grid-container > div');
 
@@ -57,26 +92,44 @@
                             newDiv.style.backgroundColor = pxColor.value;
                         });
 
-                        disco.addEventListener('click', function discButton() {
+                        pxColor.addEventListener('click', () => {
                             newDiv.removeEventListener('mouseover', rainbow);
-                            newDiv.addEventListener('mouseover', function disco() {
-                                let random = Math.floor(Math.random() * max - min) - min;
-                                newDiv.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
-                                hue = random;
-                            })
+                            newDiv.removeEventListener('mouseover', disco);
                         });
 
-                        rainbow.addEventListener('click', function rainButton() {
+                        rainbow.addEventListener('click', () => {
+                            hue = 0;
                             newDiv.removeEventListener('mouseover', disco);
                             newDiv.addEventListener('mouseover', function rainbow() {
                                 newDiv.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
                                 hue++;
-                            })
+                            });
                         });
 
-                        clear.addEventListener('click', () => {
-                            newDiv.style.backgroundColor = 'white';
+                        disco.addEventListener('click', () => {
+                            newDiv.removeEventListener('mouseover', rainbow);
+                            newDiv.addEventListener('mouseover', function disco() {
+                                let random = Math.floor(Math.random() * max - min) + min;
+                                newDiv.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
+                                hue = random;
+                            });
+                        });
+
+                        borderOn.addEventListener('click', () => {
+                            newDiv.style.border = '1px solid black';
+                        });
+                        
+                        borderOff.addEventListener('click', () => {
+                            newDiv.style.border = 'none';
                         })
+
+                        clear.addEventListener('click', () => {
+                            if (newDiv.style.border === '1px solid black') {
+                                newDiv.style.backgroundColor = 'white';
+                            } else {
+                                newDiv.style.backgroundColor = 'rgb(242, 242, 242)';
+                            }
+                        });
                     }
                 }
         </script>
